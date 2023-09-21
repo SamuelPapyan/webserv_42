@@ -19,7 +19,7 @@ SRCS = srcs/main.cpp \
 		srcs/Client.cpp \
 		srcs/HttpRequest.cpp \
 		srcs/ConfigFile.cpp \
-		srcs/ConfigParse.cpp \
+		srcs/ConfigParser.cpp \
 		srcs/ServerManager.cpp \
 		srcs/Location.cpp \
 		srcs/CgiHandler.cpp \
