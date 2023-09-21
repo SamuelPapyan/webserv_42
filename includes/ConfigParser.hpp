@@ -1,59 +1,51 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ConfigParser.hpp                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/27 10:01:53 by spapyan           #+#    #+#             */
-/*   Updated: 2023/08/27 10:01:53 by spapyan          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CONFIGPARSER_HPP
-# define CONFIGPARSER_HPP
+#define CONFIGPARSER_HPP
 
 #include "Webserv.hpp"
 
 class ServerConfig;
 
 class ConfigParser {
-private:
-    std::vector<ServerConfig>   _servers;
-    std::vector<std::string>    _server_config;
-    size_t                      _nb_server;
+	private:
+		std::vector<ServerConfig>	_servers;
+		std::vector<std::string>	_server_config;
+		size_t						_nb_server;
 
-public:
-    ConfigParser();
-    ~ConfigParser();
+	public:
 
-    int createCluster(const std::string &config_file);
+		ConfigParser();
+		~ConfigParser();
 
-    void    splitServers(std::string &content);
-    void    removeComments(std::string &content);
-    void    removeWhiteSpace(std::string &content);
-    size_t  findStartServer(size_t start, std::string &content);
-    size_t  findEndServer(size_t start, std::string &content);
-    void    createServer(std::string &config, ServerConfig &server);
-    void    checkServers();
-    std::vector<ServerConfig>   getServers();
-    int     stringCompare(std::string   str1, std::string str2, size_t pos);
+		int createCluster(const std::string &config_file);
 
-    int print();
+		void splitServers(std::string &content);
+		void removeComments(std::string &content);
+		void removeWhiteSpace(std::string &content);
+		size_t findStartServer(size_t start, std::string &content);
+		size_t findEndServer(size_t start, std::string &content);
+		void createServer(std::string &config, ServerConfig &server);
+		void checkServers();
+		std::vector<ServerConfig>	getServers();
+		int	stringCompare(std::string str1, std::string str2, size_t pos);
 
-    public:
-    class ErrorException: public std::exception {
-    private:
-        std::string _message;
-    public:
-        ErrorException(std::string message) : throw() {
-            _message = message;
-        }
-        virtual const char* what(): throw() {
-            return _message.c_str();
-        }
-        virtual ~ErrorException() throw() {}
-    };
+		int print();
+
+		public:
+		class ErrorException : public std::exception
+		{
+			private:
+				std::string _message;
+			public:
+				ErrorException(std::string message) throw()
+				{
+					_message = "CONFIG PARSER ERROR: " + message;
+				}
+				virtual const char* what() const throw()
+				{
+					return (_message.c_str());
+				}
+				virtual ~ErrorException() throw() {}
+		};
 };
 
 #endif
