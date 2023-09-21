@@ -1,4 +1,4 @@
-# include "../inc/Client.hpp"
+# include "../includes/Client.hpp"
 
 Client::Client()
 {

@@ -1,4 +1,4 @@
-# include "../inc/Response.hpp"
+# include "../includes/Response.hpp"
 
 Mime Response::_mime;
 
