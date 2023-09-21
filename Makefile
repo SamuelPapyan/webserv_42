@@ -13,7 +13,7 @@
 NAME = webserv
 
 SRCS = srcs/main.cpp \
-		srcs/Utils.cpp \
+		srcs/Webserv.cpp \
 		srcs/ServerManager.cpp \
 		srcs/Response.cpp \
 		srcs/Client.cpp \
