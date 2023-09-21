@@ -1,89 +1,100 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Client.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 16:07:24 by spapyan           #+#    #+#             */
-/*   Updated: 2023/08/20 16:07:24 by spapyan          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# include "../inc/Client.hpp"
 
-#include "../includes/Client.hpp"
-
-Client::Client() {
+Client::Client()
+{
     _last_msg_time = time(NULL);
 }
 
-Client::Client(const Client& other) {
-    if (this != &other) {
-        _client_socket = other._client_socket;
-        _client_address = other._client_address;
-        request = other.request;
-        response = other.response;
-        server = other.server;
-        _last_msg_time = other._last_msg_time;
-    }
-    return;
+Client::~Client() {}
+
+/* Copy constructor */
+Client::Client(const Client &other)
+{
+	if (this != &other)
+	{
+		this->_client_socket = other._client_socket;
+		this->_client_address = other._client_address;
+		this->request = other.request;
+		this->response = other.response;
+		this->server = other.server;
+		this->_last_msg_time = other._last_msg_time;
+
+	}
+	return ;
 }
 
-Client& Client::operator=(const Client& rhs) {
-    if (this != &rhs) {
-        _client_socket = other._client_socket;
-        _client_address = other._client_address;
-        request = other.request;
-        response = other.response;
-        server = other.server;
-        _last_msg_time = other._last_msg_time;
-    }
-    return *this;
+/* Assinment operator */
+Client &Client::operator=(const Client & rhs)
+{
+	if (this != &rhs)
+	{
+		this->_client_socket = rhs._client_socket;
+		this->_client_address = rhs._client_address;
+		this->request = rhs.request;
+		this->response = rhs.response;
+		this->server = rhs.server;
+		this->_last_msg_time = rhs._last_msg_time;
+	}
+	return (*this);
 }
 
-Client::Client(ServerConfig &server) {
+Client::Client(ServerConfig &server)
+{
     setServer(server);
     request.setMaxBodySize(server.getClientMaxBodySize());
     _last_msg_time = time(NULL);
 }
 
-void    Client::setSocket(int &sock) {
+void    Client::setSocket(int &sock)
+{
     _client_socket = sock;
 }
 
-void    Client::setAddress(sockaddr_in  &addr) {
-    _client_address = addr;
+void    Client::setAddress(sockaddr_in &addr)
+{
+    _client_address =  addr;
 }
 
-void    Client::setServer(ServerConfig &server) {
+void    Client::setServer(ServerConfig &server)
+{
     response.setServer(server);
 }
 
-const int   &Client::getSocket() const {
-    return _client_socket;
+
+const int     &Client::getSocket() const
+{
+    return (_client_socket);
 }
 
-const HttpRequest   &Client::getRequest() const {
-    return request;
+const HttpRequest   &Client::getRequest() const
+{
+    return (request);
 }
 
-const struct sockaddr_in    &Client::getAddress() const {
-    return _client_address;
+const struct sockaddr_in    &Client::getAddress() const
+{
+    return (_client_address);
 }
 
-const time_t    &Client::getLastTime() const {
-    return _last_msg_time;
+const time_t     &Client::getLastTime() const
+{
+    return (_last_msg_time);
 }
 
-void    Client::buildResponse() {
-    response.setRequest(request);
+
+void        Client::buildResponse()
+{
+    response.setRequest(this->request);
     response.buildResponse();
 }
 
-void    Client::updateTime() {
+void             Client::updateTime()
+{
     _last_msg_time = time(NULL);
 }
 
-void    Client::clearCilent() {
+void             Client::clearClient()
+{
     response.clear();
     request.clear();
 }

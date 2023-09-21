@@ -12,28 +12,34 @@
 
 #include "../includes/Webserv.hpp"
 
-int ft_stoi(std::string str) {
+int ft_stoi(std::string str)
+{
     std::stringstream ss(str);
     if (str.length() > 10)
         throw std::exception();
     for (size_t i = 0; i < str.length(); ++i)
-        if (!isdigit(str[i]))
+    {
+        if(!isdigit(str[i]))
             throw std::exception();
+    }
     int res;
     ss >> res;
-    return res;
+    return (res);
 }
 
-unsigned int    fromHexToDec(const std::string& nb) {
-    unsigned int        x;
-    std::stringstream   ss;
-    ss << nb;
-    ss >> std::hex >> x;
-    return x;
+unsigned int fromHexToDec(const std::string& nb)
+{
+	unsigned int x;
+	std::stringstream ss;
+	ss << nb;
+	ss >> std::hex >> x;
+	return (x);
 }
 
-std::string statusCodeString(short statusCode) {
-    switch (statusCode) {
+std::string statusCodeString(short statusCode)
+{
+    switch (statusCode)
+    {
         case 100:
             return "Continue";
         case 101:
@@ -65,7 +71,7 @@ std::string statusCodeString(short statusCode) {
         case 307:
             return "Temporary Redirect";
         case 308:
-            return "Permonent Redirect";
+            return "Permanent Redirect";
         case 400:
             return "Bad Request";
         case 401:
@@ -138,24 +144,27 @@ std::string statusCodeString(short statusCode) {
             return "Network Authentication Required";
         default:
             return "Undefined";
-    }
+        }
 }
 
-std::string getErrorPage(short statusCode) {
-    return  ("<html>\r\n<head><title>" + toString(statusCode) + " " 
-            + statusCodeString(statusCode) + " </title></head>\r\n" + "<body>\r\n"
-            + "<center><h1>" + toString(statusCode) + " " + statusCodeString(statusCode) + "</h1></center>\r\n");
+std::string getErrorPage(short statusCode)
+{
+    return ("<html>\r\n<head><title>" + toString(statusCode) + " " +
+             statusCodeString(statusCode) + " </title></head>\r\n" + "<body>\r\n" + 
+            "<center><h1>" + toString(statusCode) + " " + statusCodeString(statusCode) + "</h1></center>\r\n");
 }
 
-int buildHtmlIndex(std::string  &dir_name, std::vector<uint8_t>& body, size_t& body_len) {
+int buildHtmlIndex(std::string &dir_name, std::vector<uint8_t> &body, size_t &body_len)
+{
     struct dirent   *entityStruct;
     DIR             *directory;
     std::string     dirListPage;
-
+    
     directory = opendir(dir_name.c_str());
-    if (directory == NULL) {
+    if (directory == NULL)
+    {    
         std::cerr << "opendir failed" << std::endl;
-        return 1;
+        return (1);
     }
     dirListPage.append("<html>\n");
     dirListPage.append("<head>\n");
@@ -163,27 +172,32 @@ int buildHtmlIndex(std::string  &dir_name, std::vector<uint8_t>& body, size_t& b
     dirListPage.append(dir_name);
     dirListPage.append("</title>\n");
     dirListPage.append("</head>\n");
-    dirListPage.append("<body>\n");
+    dirListPage.append("<body >\n");
     dirListPage.append("<h1> Index of " + dir_name + "</h1>\n");
     dirListPage.append("<table style=\"width:80%; font-size: 15px\">\n");
     dirListPage.append("<hr>\n");
     dirListPage.append("<th style=\"text-align:left\"> File Name </th>\n");
-    dirListPage.append("<th style=\"text-align:left\"> Last Modification </th>\n");
+    dirListPage.append("<th style=\"text-align:left\"> Last Modification  </th>\n");
     dirListPage.append("<th style=\"text-align:left\"> File Size </th>\n");
-    
+
     struct stat file_stat;
     std::string file_path;
 
-    while ((entityStruct = readdir(directory)) != NULL) {
-        if (strcmp(entityStruct->d_name, ".") == 0)
+    while((entityStruct = readdir(directory)) != NULL)
+    {
+        if(strcmp(entityStruct->d_name, ".") == 0)
             continue;
         file_path = dir_name + entityStruct->d_name;
-        stat(file_path.c_str(), &file_stat);
+        stat(file_path.c_str() , &file_stat);
         dirListPage.append("<tr>\n");
         dirListPage.append("<td>\n");
         dirListPage.append("<a href=\"");
         dirListPage.append(entityStruct->d_name);
-        if (s_ISDIR(file_stat.st_mode))
+        if (S_ISDIR(file_stat.st_mode))
+            dirListPage.append("/");
+        dirListPage.append("\">");
+        dirListPage.append(entityStruct->d_name);
+        if (S_ISDIR(file_stat.st_mode))
             dirListPage.append("/");
         dirListPage.append("</a>\n");
         dirListPage.append("</td>\n");
@@ -197,12 +211,12 @@ int buildHtmlIndex(std::string  &dir_name, std::vector<uint8_t>& body, size_t& b
         dirListPage.append("</tr>\n");
     }
     dirListPage.append("</table>\n");
-    dirListPage.append("</hr>\n");
+    dirListPage.append("<hr>\n");
 
     dirListPage.append("</body>\n");
     dirListPage.append("</html>\n");
 
     body.insert(body.begin(), dirListPage.begin(), dirListPage.end());
     body_len = body.size();
-    return 0;
+    return (0);
 }
