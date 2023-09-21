@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includesludes/Webserv.hpp"
-#include "../includesludes/ServerManager.hpp"
+#include "../includes/Webserv.hpp"
+#include "../includes/ServerManager.hpp"
 
 void sigpipeHandle(int sig) { if(sig) {}}
 
