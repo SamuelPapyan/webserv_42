@@ -1,4 +1,4 @@
-#include "../includes/ServerConfig.hpp"
+#include "../inc/ServerConfig.hpp"
 
 ServerConfig::ServerConfig()
 {
@@ -337,11 +337,11 @@ void ServerConfig::setLocation(std::string path, std::vector<std::string> parame
 	if (valid == 1)
 		throw ErrorException("Failed CGI validation");
 	else if (valid == 2)
-		throw ErrorException("Failed path in locatiion validation");
+		throw ErrorException("Failed path in locaition validation");
 	else if (valid == 3)
-		throw ErrorException("Failed redirection file in locatiion validation");
+		throw ErrorException("Failed redirection file in locaition validation");
 	else if (valid == 4)
-		throw ErrorException("Failed alias file in location validation");
+		throw ErrorException("Failed alias file in locaition validation");
 	this->_locations.push_back(new_location);
 }
 
@@ -528,7 +528,7 @@ void ServerConfig::checkToken(std::string &parametr)
 }
 
 /* check location for a dublicate */
-bool ServerConfig::checkLocations() const
+bool ServerConfig::checkLocaitons() const
 {
 	if (this->_locations.size() < 2)
 		return (false);

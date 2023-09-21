@@ -1,4 +1,4 @@
-# include "../includes/ServerManager.hpp"
+# include "../inc/ServerManager.hpp"
 
 ServerManager::ServerManager(){}
 ServerManager::~ServerManager(){}

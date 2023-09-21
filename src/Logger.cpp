@@ -1,4 +1,4 @@
-#include "../includes/Logger.hpp"
+#include "../inc/Logger.hpp"
 
 
 std::string Logger::file_name = "logfile.txt";

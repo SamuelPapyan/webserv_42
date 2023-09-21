@@ -1,4 +1,4 @@
-#include "../includes/ConfigFile.hpp"
+#include "../inc/ConfigFile.hpp"
 
 ConfigFile::ConfigFile() : _size(0) { }
 

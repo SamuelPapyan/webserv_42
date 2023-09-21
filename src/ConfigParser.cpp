@@ -1,4 +1,4 @@
-#include "../includes/ConfigParser.hpp"
+#include "../inc/ConfigParser.hpp"
 
 ConfigParser::ConfigParser()
 {
@@ -305,8 +305,8 @@ void ConfigParser::createServer(std::string &config, ServerConfig &server)
 		server.setIndex("index.html;");
 	if (ConfigFile::isFileExistAndReadable(server.getRoot(), server.getIndex()))
 		throw ErrorException("Index from config file not found or unreadable");
-	if (server.checkLocations())
-		throw ErrorException("Location is duplicated");
+	if (server.checkLocaitons())
+		throw ErrorException("Locaition is duplicated");
 	if (!server.getPort())
 		throw ErrorException("Port not found");
 	server.setErrorPages(error_codes);

@@ -58,7 +58,7 @@ class ServerConfig
 		const std::vector<Location>::iterator getLocationKey(std::string key);
 
 		static void checkToken(std::string &parametr);
-		bool checkLocations() const;
+		bool checkLocaitons() const;
 
 		public:
 		class ErrorException : public std::exception

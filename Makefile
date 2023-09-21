@@ -1,49 +1,28 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/01 12:06:58 by spapyan           #+#    #+#              #
-#    Updated: 2023/09/01 12:06:58 by spapyan          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = webserv
 
-SRCS = srcs/main.cpp \
-		srcs/Webserv.cpp \
-		srcs/ServerManager.cpp \
-		srcs/Response.cpp \
-		srcs/Client.cpp \
-		srcs/HttpRequest.cpp \
-		srcs/ConfigFile.cpp \
-		srcs/ConfigParser.cpp \
-		srcs/ServerConfig.cpp \
-		srcs/Location.cpp \
-		srcs/CgiHandler.cpp \
-		srcs/Mime.cpp \
-		srcs/Logger.cpp
+SRCS = src/main.cpp src/Utils.cpp src/ServerManager.cpp src/Response.cpp src/Client.cpp src/HttpRequest.cpp \
+	   src/ConfigFile.cpp src/ConfigParser.cpp src/ServerConfig.cpp src/Location.cpp src/CgiHandler.cpp \
+	   src/Mime.cpp src/Logger.cpp
 
-HEADERS = includes/Webserv.hpp
+HEADERS	= inc/Webserv.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-CC = c++
+CXX = c++
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS += -g3 
 
 RM = rm -rf
 
 RESET = "\033[0m"
-BLACK = ="\033[1m\033[37m"
+BLACK = "\033[1m\033[37m"
 
 all:
 	@$(MAKE) $(NAME) -j5
-$(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo $(BLACK) - webserv compiled $(RESET)
+$(NAME) : $(OBJS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+	@echo $(BLACK)-webserv compiled 🌐 $(RESET)
 
 clean:
 	$(RM) $(OBJS)
@@ -51,6 +30,6 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re:	fclean all
+re: 	fclean all
 
 .PHONY: all clean fclean re

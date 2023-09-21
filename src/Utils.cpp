@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Webserv.cpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/01 09:59:40 by spapyan           #+#    #+#             */
-/*   Updated: 2023/09/01 09:59:40 by spapyan          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/Webserv.hpp"
+#include "../inc/Webserv.hpp"
 
 int ft_stoi(std::string str)
 {
@@ -220,3 +208,5 @@ int buildHtmlIndex(std::string &dir_name, std::vector<uint8_t> &body, size_t &bo
     body_len = body.size();
     return (0);
 }
+
+
