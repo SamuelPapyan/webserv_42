@@ -6,7 +6,7 @@
 /*   By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:48:47 by spapyan           #+#    #+#             */
-/*   Updated: 2023/09/21 13:48:47 by spapyan          ###   ########.fr       */
+/*   Updated: 2023/09/26 19:32:05 by spapyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,7 @@ void    HttpRequest::feed(char *data, size_t size)
             }
             case Request_Line_Major:
             {
-                if (!isdigit(character))
+                if (!isdigit(character) || character == '0')
                 {
                     _error_code = 400;
                     std::cout << "Bad Character (Request_Line_Major)" << std::endl;
