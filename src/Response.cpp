@@ -6,7 +6,7 @@
 /*   By: spapyan <spapyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:49:18 by spapyan           #+#    #+#             */
-/*   Updated: 2023/09/21 13:49:19 by spapyan          ###   ########.fr       */
+/*   Updated: 2023/09/26 19:17:55 by spapyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,6 +497,10 @@ int    Response::buildBody()
     {
         if (fileExists(_target_file) && request.getMethod() == POST)
         {
+            if (request.getBody().size() == 0) {
+                _code = 408;
+                return (1);
+            }
             _code = 204;
             return (0);
         }
