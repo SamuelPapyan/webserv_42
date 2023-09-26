@@ -8,6 +8,8 @@ form = cgi.FieldStorage()
 fileitem = form['filename']
 
 # Test if the file was uploaded
+if not os.path.exists(os.getcwd() + '/cgi-bin/tmp/'):
+   os.mkdir(os.getcwd() + '/cgi-bin/tmp/')
 if fileitem.filename:
    open(os.getcwd() + '/cgi-bin/tmp/' + os.path.basename(fileitem.filename), 'wb').write(fileitem.file.read())
    message = 'The file "' + os.path.basename(fileitem.filename) + '" was uploaded to ' + os.getcwd() + '/cgi-bin/tmp'
